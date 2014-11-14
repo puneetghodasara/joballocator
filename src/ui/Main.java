@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.DialogStyle;
+import org.controlsfx.dialog.Dialogs;
+
 import ui.bean.UICompanyBean;
 import ui.bean.UIDBLoginCredential;
 import javafx.application.Application;
@@ -18,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import api.bean.Company;
+import api.context.GlobalContext;
 
 /**
  * Main Application. This class handles navigation and user session.
@@ -65,6 +71,14 @@ public class Main extends Application {
         Scene scene = new Scene(page/*, 800, 600*/);
         stage.setScene(scene);
         stage.sizeToScene();
+        // Preventing accidental close
+        stage.setOnCloseRequest(we->{
+        	Action showConfirm = Dialogs.create().title("Application Exit").message(GlobalContext.CONFIRM_EXIT).style(DialogStyle.NATIVE).showConfirm();
+        	if(showConfirm==Dialog.Actions.YES){
+        		exit();
+        	}
+        	we.consume();
+        });
         return (Initializable) loader.getController();
     }
     
@@ -136,6 +150,15 @@ public class Main extends Application {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }		
+	}
+
+	public static boolean showError(String title, String message) {
+		Action response = Dialogs.create().owner(stage)
+				.title(title)
+				.message(message)
+				.style(DialogStyle.NATIVE)
+				.showError();
+		return (response==Dialog.Actions.OK)?true:false;
 	}
 
 }

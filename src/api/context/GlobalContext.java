@@ -39,6 +39,7 @@ public class GlobalContext {
 	
 	public static final String LOGIN_ATTEMPT_FAILURE = "Username / Password are invalid. Try again.";
 	public static final String DATA_ATTEMPT_FAILURE = "Credential for data conneciton is invalid.";
+	public static final String CONFIRM_EXIT = "Do you really want to exit the application?";
 	
 	
 	public static DataFetcher getDataFetcher(){
