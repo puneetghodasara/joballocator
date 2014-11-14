@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.NewInfoController">
+   <children>
+      <VBox prefHeight="632.0" prefWidth="883.0" spacing="3.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <HBox>
+               <children>
+                  <Label prefHeight="35.0" prefWidth="423.0" text="Job Allocation Portal" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="559.0">
+               <children>
+                  <HBox layoutX="14.0" layoutY="43.0" prefHeight="37.0" prefWidth="156.0" spacing="10.0">
+                     <children>
+                        <Label layoutX="58.0" layoutY="43.0" prefHeight="31.0" prefWidth="55.0" text="Batch" />
+                        <Label fx:id="batch" layoutX="130.0" layoutY="43.0" prefHeight="21.0" prefWidth="81.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="20.0" top="3.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="200.0" layoutY="43.0" prefHeight="37.0" prefWidth="156.0" spacing="10.0">
+                     <children>
+                        <Label layoutX="58.0" layoutY="43.0" prefHeight="31.0" prefWidth="42.0" text="Day" />
+                        <Label fx:id="day" layoutX="130.0" layoutY="43.0" prefHeight="21.0" prefWidth="81.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="356.0" layoutY="43.0" prefHeight="37.0" prefWidth="156.0" spacing="10.0">
+                     <children>
+                        <Label layoutX="58.0" layoutY="43.0" prefHeight="31.0" prefWidth="36.0" text="Slot" />
+                        <Label fx:id="slot" layoutX="130.0" layoutY="43.0" prefHeight="21.0" prefWidth="81.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <VBox>
+               <children>
+                  <HBox prefHeight="632.0" prefWidth="883.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox spacing="5.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="242.0" layoutY="6.0" prefHeight="27.0" prefWidth="200.0" text="Companies">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                 </padding>
+                              </HBox>
+                              <ListView fx:id="compList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="processJobButton" mnemonicParsing="false" text="Process Jobs" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox prefHeight="66.0" prefWidth="637.0" spacing="3.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                             <children>
+                                                <Label contentDisplay="CENTER" layoutX="242.0" layoutY="6.0" prefHeight="27.0" prefWidth="200.0" text="List of Actual Offer">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                             </padding>
+                                          </HBox>
+                                          <TableView fx:id="actTable" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                             <columns>
+                                                <TableColumn fx:id="actIndCol" editable="false" maxWidth="1.7976931348623157E308" prefWidth="75.0" sortable="false" text="Index" />
+                                                <TableColumn fx:id="actRollCol" editable="false" maxWidth="1.7976931348623157E308" prefWidth="75.0" sortable="false" text="Roll No" />
+                                                <TableColumn fx:id="actNameCol" editable="false" maxWidth="1.7976931348623157E308" prefWidth="184.0" sortable="false" text="Name" />
+                                             </columns>
+                                             <padding>
+                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                             </HBox.margin>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                    <VBox HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                             <children>
+                                                <Label contentDisplay="CENTER" layoutX="242.0" layoutY="6.0" prefHeight="27.0" prefWidth="200.0" text="List of Waitlist Offer">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                                             </padding>
+                                          </HBox>
+                                          <TableView fx:id="wlTable" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                             <columns>
+                                                <TableColumn fx:id="wlIndCol" editable="false" maxWidth="1.7976931348623157E308" prefWidth="75.0" sortable="false" text="Index" />
+                                                <TableColumn fx:id="wlRollCol" editable="false" maxWidth="1.7976931348623157E308" prefWidth="75.0" sortable="false" text="Roll No" />
+                                                <TableColumn fx:id="wlNameCol" editable="false" maxWidth="1.7976931348623157E308" prefWidth="184.0" sortable="false" text="Name" />
+                                             </columns>
+                                             <padding>
+                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets left="5.0" right="5.0" />
+                                             </HBox.margin>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT">
+                                 <children>
+                                    <Label prefHeight="21.0" prefWidth="133.0" text="Company Name :" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <Label fx:id="compNameLabel" prefHeight="21.0" prefWidth="204.0" HBox.hgrow="ALWAYS" />
+                                    <Label prefHeight="21.0" prefWidth="97.0" text="JAF Number :" />
+                                    <Label fx:id="jafNumLabel" prefHeight="21.0" prefWidth="77.0" />
+                                    <Button fx:id="editJobButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="157.0" text="Edit Job Letter">
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="4.0" prefWidth="710.0">
+               <children>
+                  <VBox alignment="BOTTOM_RIGHT" prefHeight="38.0" prefWidth="206.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="212.0" text="Desgined by Puneet Ghodasara" textAlignment="RIGHT">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="2.0" left="2.0" right="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="209.0" text="Web Coordinator 2012-13 &amp; 2013-14" textAlignment="RIGHT">
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

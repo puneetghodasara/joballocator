@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="894.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.JobReportController">
+   <children>
+      <VBox layoutX="73.0" layoutY="75.0" prefHeight="560.0" prefWidth="760.0" spacing="5.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
+         <children>
+            <HBox alignment="TOP_RIGHT" spacing="10.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="766.0" text="Job Report">
+                     <font>
+                        <Font name="Arial Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="print" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="83.0" text="Print" textAlignment="RIGHT">
+                     <VBox.margin>
+                        <Insets right="30.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <TabPane tabMinWidth="200.0" HBox.hgrow="ALWAYS">
+                     <tabs>
+                        <Tab fx:id="fullReportTab" closable="false" text="Full Report">
+                           <content>
+                              <TreeTableView fx:id="offerTable" layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                              </TreeTableView>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="compTab" closable="false" text="Company Wise Report">
+                           <content>
+                              <HBox>
+                                 <children>
+                                    <ListView fx:id="companySelectList" prefHeight="200.0" prefWidth="200.0" />
+                                    <TreeTableView fx:id="companywiseOfferTable" layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                       
+                                    </TreeTableView>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="studentTab" closable="false" text="Student Wise Report">
+                           <content>
+                              <TreeTableView fx:id="studentwiseOfferTable" layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                                 
+                              </TreeTableView>
+                           </content>
+                        </Tab>
+                     </tabs>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TabPane>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" layoutX="5.0" layoutY="205.0" spacing="10.0">
+               <children>
+      
+                                                                                                      <Button fx:id="close" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="31.0" prefWidth="64.0" text="Close" textAlignment="RIGHT">
+                     <VBox.margin>
+                        <Insets right="30.0" />
+                     </VBox.margin>
+                  </Button>
+                  
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</AnchorPane>
