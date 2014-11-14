@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import api.context.GlobalContext;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -49,6 +50,11 @@ public class NewInfoController extends AnchorPane implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    	// Adding batch, day, slot
+    	batch.setText(GlobalContext.BATCH);
+    	day.setText(String.valueOf(GlobalContext.DAY));
+    	slot.setText(String.valueOf(GlobalContext.SLOT));
+    	
     	// binding tables
     	actTable.setItems(actualList);
     	actIndCol.setCellFactory(cell->new NumberedCell<>());

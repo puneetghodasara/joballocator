@@ -79,9 +79,9 @@ public class DBLoginController extends AnchorPane implements Initializable {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
         
-        batch.setPromptText(String.valueOf(date.getYear()));
-        day.setPromptText(String.valueOf(date.getDayOfMonth()));
-        slot.setPromptText(String.valueOf(date.getDayOfMonth()>5?1:(time.getHour()>22?2:1)));
+        batch.setText(String.valueOf(date.getYear()));
+        day.setText(String.valueOf(date.getDayOfMonth()));
+        slot.setText(String.valueOf(date.getDayOfMonth()>5?1:(time.getHour()>22?2:1)));
         
         loginButton.setOnAction(e->{
         	defaultDB.setIp(ip.getText());
@@ -93,6 +93,9 @@ public class DBLoginController extends AnchorPane implements Initializable {
             	errorMsg.setText("Incorrect batch/day/slot.");
             	return;
         	}
+        	defaultDB.setBatch(batch.getText());
+        	defaultDB.setDay(Integer.parseInt(day.getText()));
+        	defaultDB.setSlot(Integer.parseInt(slot.getText()));
         	UIProcessor.processDBPage(defaultDB);
         });
         exitButton.setOnAction(e->{
@@ -110,7 +113,6 @@ public class DBLoginController extends AnchorPane implements Initializable {
     	}catch(NumberFormatException nfe){
     		return false;
     	}
-//    	DBConnector.setParam(b, day, slot);
     	return true;
 	}
 
@@ -121,11 +123,6 @@ public class DBLoginController extends AnchorPane implements Initializable {
         dbname.setPromptText(defaultDB.getDbname());
         username.setPromptText(defaultDB.getUsername());
 
-     // TODO Remove three lines
-        batch.setText("2012");
-        day.setText("1");
-        slot.setText("1");
-        
 	}
 
 	public void setMessage(String msg) {

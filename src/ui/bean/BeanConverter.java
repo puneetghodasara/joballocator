@@ -18,13 +18,7 @@ public class BeanConverter {
 	}
 
 	public static DBCredential convert(UIDBLoginCredential uidbLoginBean) {
-		DBCredential dbCred = new DBCredential();
-		dbCred.setIp(uidbLoginBean.getIp());
-		dbCred.setHostname(uidbLoginBean.getHostname());
-		dbCred.setDbname(uidbLoginBean.getDbname());
-		dbCred.setUsername(uidbLoginBean.getUsername());
-		dbCred.setPassword(uidbLoginBean.getPassword());
-		return dbCred;
+		return new DBCredential(uidbLoginBean);
 	}
 
 	public static ArrayList<UICompanyBean> convert(ArrayList<Company> compList) {

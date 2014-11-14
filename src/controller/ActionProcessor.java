@@ -24,6 +24,11 @@ public class ActionProcessor {
 		GlobalContext.DB_USER_NAME = dbCred.getUsername();
 		GlobalContext.DB_PASSWORD = dbCred.getPassword();
 		
+		GlobalContext.BATCH = dbCred.getBatch();
+		GlobalContext.DAY = dbCred.getDay();
+		GlobalContext.SLOT = dbCred.getSlot();
+		
+		
 		// Test the status and return
 		boolean status = GlobalContext.getDataFetcher().testConnection();
 		if(status)

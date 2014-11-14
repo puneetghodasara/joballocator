@@ -15,9 +15,9 @@ import fetcher.DummyDataFetcher;
  */
 public class GlobalContext {
 
-	public static final String BATCH = "2012";
-	public static final int DAY = 2;
-	public static final int SLOT = 1;
+	public static String BATCH = null;
+	public static int DAY = -1;
+	public static int SLOT = -1;
 	
 	public static String DB_HOST_NAME = null;
 	public static String DB_SCHMEA_NAME = null;

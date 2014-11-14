@@ -1,5 +1,7 @@
 package api.credential;
 
+import ui.bean.UIDBLoginCredential;
+
 /**
  * Bean class of DB credentials
  * @author Punit_Ghodasara
@@ -13,38 +15,52 @@ public class DBCredential {
 	private String ip;
 	private String dbname;
 	
-	public DBCredential() {
+	private String batch;
+	private int day;
+	private int slot;
+	
+	public DBCredential(UIDBLoginCredential uidbLoginBean) {
 		super();
+		ip = uidbLoginBean.getIp();
+		hostname = (uidbLoginBean.getHostname());
+		dbname = (uidbLoginBean.getDbname());
+		username = (uidbLoginBean.getUsername());
+		password = (uidbLoginBean.getPassword());
+		batch = (uidbLoginBean.getBatch());
+		day = (uidbLoginBean.getDay());
+		slot = (uidbLoginBean.getSlot());
 	}
+
 	public String getUsername() {
 		return username;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
 	public String getHostname() {
 		return hostname;
 	}
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
-	}
+
 	public String getIp() {
 		return ip;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
+
 	public String getDbname() {
 		return dbname;
 	}
-	public void setDbname(String dbname) {
-		this.dbname = dbname;
+
+	public String getBatch() {
+		return batch;
 	}
 
+	public int getDay() {
+		return day;
+	}
+
+	public int getSlot() {
+		return slot;
+	}
+	
 }

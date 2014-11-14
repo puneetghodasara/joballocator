@@ -8,6 +8,10 @@ public class UIDBLoginCredential {
 	private String ip;
 	private String dbname;
 	
+	private String batch;
+	private int day;
+	private int slot;
+	
 	public UIDBLoginCredential() {
 		super();
 	}
@@ -40,6 +44,24 @@ public class UIDBLoginCredential {
 	}
 	public void setDbname(String dbname) {
 		this.dbname = dbname;
+	}
+	public String getBatch() {
+		return batch;
+	}
+	public void setBatch(String batch) {
+		this.batch = batch;
+	}
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
+	public int getSlot() {
+		return slot;
+	}
+	public void setSlot(int slot) {
+		this.slot = slot;
 	}
 	
 	
