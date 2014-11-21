@@ -7,6 +7,7 @@ import ui.bean.UICompanyBean;
 import ui.bean.UIDBLoginCredential;
 import ui.bean.UILoginCredential;
 import ui.bean.UIOfferBean;
+import ui.bean.UIStudentBean;
 import api.bean.Company;
 import api.bean.Student;
 import api.bean.offer.OfferStatus;
@@ -43,12 +44,10 @@ public class UIProcessor {
 		Main.gotoAfterDB(uiCompList, false);
 	}
 
-	public static void processAddOffer(UICompanyBean comp, String roll, OfferStatus offerstatus, int offerrank) {
-		Student student = GlobalContext.getLocalStore().searchStudent(roll);
-		if(student!=null){
-			Company company = comp.getCompany();
-			ActionProcessor.processAddOffer(company,student,offerstatus,offerrank);
-		}
+	public static void processAddOffer(UICompanyBean comp, UIStudentBean selectedItem, OfferStatus offerstatus, int offerrank) {
+		Company company = comp.getCompany();
+		Student student = GlobalContext.getLocalStore().searchStudent(selectedItem.getId());
+		ActionProcessor.processAddOffer(company,student,offerstatus,offerrank);
 		Main.showOfferPage(comp, true);
 	}
 
@@ -73,7 +72,7 @@ public class UIProcessor {
 		ArrayList<UICompanyBean> uiCompList = BeanConverter.convert(compList);
 		Main.gotoJobReport(uiCompList);
 	}
-
+	
 	public static void exit() {
 		Main.exit();
 	}

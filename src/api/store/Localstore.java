@@ -1,7 +1,9 @@
 package api.store;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
+import ui.bean.UIOfferBean;
 import api.bean.Company;
 import api.bean.Preference;
 import api.bean.Student;

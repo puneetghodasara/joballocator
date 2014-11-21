@@ -72,4 +72,9 @@ public class Student implements OfferTaker {
 	public boolean hasNoPreference(){
 		return jobpref.isEmpty();
 	}
+
+	@Override
+	public String toString() {
+		return getRollno()+":"+getName();
+	}
 }

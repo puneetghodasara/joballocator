@@ -3,6 +3,7 @@ package ui.bean;
 import java.util.ArrayList;
 
 import api.bean.Company;
+import api.bean.Student;
 import api.credential.DBCredential;
 import api.credential.LoginCredential;
 
@@ -28,4 +29,13 @@ public class BeanConverter {
 		});
 		return uiCompList;
 	}
+
+	public static ArrayList<UIStudentBean> convertStudentList(ArrayList<Student> studList) {
+		ArrayList<UIStudentBean> uiStudList = new ArrayList<>();
+		studList.forEach(stud->{
+			uiStudList.add(new UIStudentBean(stud));
+		});
+		return uiStudList;
+	}
+
 }

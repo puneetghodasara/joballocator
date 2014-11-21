@@ -6,6 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import ui.comp.*?>
 
 <AnchorPane prefHeight="580.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.JobOfferController">
    <children>
@@ -85,11 +86,11 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="0.0" prefWidth="746.0" spacing="10.0">
                <children>
-                  <TextField fx:id="actTextBox" HBox.hgrow="ALWAYS">
+                  <FilterableComboBox fx:id="actTextBox" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
                      </HBox.margin>
-                  </TextField>
+                  </FilterableComboBox>
                   <Button fx:id="actAdd" mnemonicParsing="false" text="Add">
                      <HBox.margin>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
@@ -100,16 +101,17 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Separator>
-                  <TextField fx:id="wlTextBox" HBox.hgrow="ALWAYS">
+                  <FilterableComboBox fx:id="wlTextBox" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
                      </HBox.margin>
-                  </TextField>
+                  </FilterableComboBox>
                   <Button fx:id="wlAdd" mnemonicParsing="false" text="Add">
                      <HBox.margin>
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </HBox.margin>
                   </Button>
+                  
                </children>
             </HBox>
             <HBox prefHeight="66.0" prefWidth="637.0" VBox.vgrow="ALWAYS">
