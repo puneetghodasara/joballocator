@@ -13,6 +13,7 @@ import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.DialogStyle;
 import org.controlsfx.dialog.Dialogs;
 
+import service.PrintTask;
 import ui.bean.UICompanyBean;
 import ui.bean.UIDBLoginCredential;
 import javafx.application.Application;
@@ -49,8 +50,8 @@ public class Main extends Application {
 //            stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
 //            stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
 
-//            gotoLogin(null, false);
-            UIProcessor.entry();
+            gotoLogin(null, false);
+//            UIProcessor.entry();
             
             primaryStage.show();
         } catch (Exception ex) {
@@ -84,6 +85,7 @@ public class Main extends Application {
     }
     
 	public static void exit() {
+		PrintTask.es.shutdownNow();
 		stage.close();
 	}
 

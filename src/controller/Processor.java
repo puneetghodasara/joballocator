@@ -42,13 +42,13 @@ public class Processor {
 				
 		ActionProcessor.processAddOffer(companies.get(0), students.get(0), OfferStatus.ACTUAL_OFFER, 0);
 		ActionProcessor.processAddOffer(companies.get(0), students.get(1), OfferStatus.ACTUAL_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(0), students.get(2), OfferStatus.WAITLIST_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(1), students.get(2), OfferStatus.ACTUAL_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(1), students.get(3), OfferStatus.ACTUAL_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(1), students.get(4), OfferStatus.ACTUAL_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(1), students.get(5), OfferStatus.WAITLIST_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(2), students.get(3), OfferStatus.ACTUAL_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(2), students.get(0), OfferStatus.WAITLIST_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(0), students.get(2), OfferStatus.WAITLIST_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(1), students.get(2), OfferStatus.ACTUAL_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(1), students.get(3), OfferStatus.ACTUAL_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(1), students.get(4), OfferStatus.ACTUAL_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(1), students.get(5), OfferStatus.WAITLIST_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(2), students.get(3), OfferStatus.ACTUAL_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(2), students.get(0), OfferStatus.WAITLIST_OFFER, 0);
 		
 		
 		// Step 4 :: Get eligible students (who has a chance of job)
@@ -72,6 +72,7 @@ public class Processor {
 		
 		for(Student aStud : offeredStudents){
 			List<Company> prefComp = null;
+			System.out.println("\nProcessing : "+aStud.getRollno());
 			// Step 3 :: If student has not filled preferences
 			if(aStud.hasNoPreference()){
 				prefComp = new ArrayList<>();
@@ -79,31 +80,39 @@ public class Processor {
 				prefComp = aStud.getPreferences()
 						.stream()
 						.map(pref->pref.getCompany())
-						.filter(c->c.getAgent().hasOfferFor(aStud))
+//						.filter(c->c.getAgent().hasOfferFor(aStud))
 						.collect(Collectors.toList());
 			}
+			System.out.println("Preference : "+prefComp.size());
 			// Step 3 (cont) :: if no preference added, add all companies (making sure they go at last in list)
-//			if(prefComp.size()==0){
+			if(prefComp.size()==0){
 				boolean extraPref = companies.stream().filter(c->c.getAgent().hasOfferFor(aStud)).findAny().isPresent();
 				if(extraPref){
 					prefComp.addAll(companies.stream().filter(c->c.getAgent().hasOfferFor(aStud)).collect(Collectors.toList()));
-					System.out.println("ADDED for"+aStud);
+					System.out.println("Company ADDED for "+aStud);
 				}
-//			}
+			}
 			// Step 4 : 
 			// 		if student is unplaced and get an actual job, student accepts it.
 			//		if student is placed and get an actual job, student rejects it and uplift of other job happens.
 			//		if student is unplaced and get a WLjob, we hold.
 			//		if company has been sealed, we DO NOTHING
 			
-			System.out.println(aStud.getRollno());
+			System.out.println("Preference : "+prefComp.size());
 			
 			for(Company comp : prefComp){
 				
-				System.out.print("\n"+comp.getCompanyName());
+				System.out.print("\n Company :"+comp.getCompanyName());
+				
+				if(!comp.getAgent().isLetterSent()){
+					// Hey, Wait student is praying for company which is lazy
+					noOfHolds++;
+					break;
+				}
 				
 				JobOffer matchedOffer = comp.getAgent().getOfferOf(aStud);
 				OfferStatus status = matchedOffer.getCurrentStatus();
+				
 				if(!aStud.isPlaced() && status.equals(OfferStatus.ACTUAL_OFFER)){
 					System.out.print("  ACCEPTED");
 					aStud.accept(matchedOffer);

@@ -158,12 +158,17 @@
                                           <Insets left="5.0" right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="compNameLabel" prefHeight="21.0" prefWidth="204.0" HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="compNameLabel" prefHeight="21.0" prefWidth="130.0" HBox.hgrow="ALWAYS" />
                                     <Label prefHeight="21.0" prefWidth="97.0" text="JAF Number :" />
                                     <Label fx:id="jafNumLabel" prefHeight="21.0" prefWidth="77.0" />
-                                    <Button fx:id="editJobButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="157.0" text="Edit Job Letter">
+                                    <Button fx:id="editJobButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="125.0" text="Edit Job Letter">
                                        <HBox.margin>
-                                          <Insets right="20.0" />
+                                          <Insets right="8.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="lockButton" mnemonicParsing="false" text="Lock">
+                                       <HBox.margin>
+                                          <Insets right="5.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>

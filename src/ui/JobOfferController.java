@@ -56,8 +56,8 @@ public class JobOfferController extends AnchorPane implements Initializable {
 	@FXML Label compname; 
 	@FXML Label jafno;
 	
-	@FXML FilterableComboBox<UIStudentBean> actTextBox;
-	@FXML FilterableComboBox<UIStudentBean> wlTextBox;
+	@FXML ComboBox<UIStudentBean> actTextBox;
+	@FXML ComboBox<UIStudentBean> wlTextBox;
 	
 	@FXML Button actAdd;
 	@FXML Button wlAdd;

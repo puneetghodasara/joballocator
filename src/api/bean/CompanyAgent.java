@@ -17,7 +17,9 @@ public class CompanyAgent implements OfferSubscriber{
 
 	private ArrayList<JobOffer> offers = new ArrayList<>();
 	private Company company;
-		
+	
+	private boolean hasSent = false;	
+	
 	public CompanyAgent(Company comp) {
 		super();
 		this.company = comp;
@@ -25,6 +27,14 @@ public class CompanyAgent implements OfferSubscriber{
 
 	public ArrayList<JobOffer> getOffers() {
 		return offers;
+	}
+	
+	public boolean isLetterSent(){
+		return hasSent;
+	}
+	
+	public void sendLetter(){
+		hasSent = true;
 	}
 	
 	/**

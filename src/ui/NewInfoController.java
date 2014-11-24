@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import org.controlsfx.dialog.Dialogs;
+
 import api.context.GlobalContext;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,6 +43,7 @@ public class NewInfoController extends AnchorPane implements Initializable {
 	@FXML Label jafNumLabel;
 	
 	@FXML Button editJobButton;
+	@FXML Button lockButton;
 	@FXML Button processJobButton;
 	
 	@FXML Label batch;
@@ -72,11 +75,21 @@ public class NewInfoController extends AnchorPane implements Initializable {
     	
     	compNameLabel.textProperty().bind(compList.getSelectionModel().selectedItemProperty().asString());
     	
+    	
     	// event listeners
     	editJobButton.setOnAction(e->{
     		UICompanyBean selComp = compList.getSelectionModel().getSelectedItem();
-    		if(selComp!=null)
+    		if(selComp==null)
+    			return;
+    		if(selComp.getCompany().getAgent().isLetterSent())
+    			Dialogs.create().title("Error").message("Company Offer Letter is locked. You can not modify now.").showError();
+    		else
     			UIProcessor.processCallEditOffer(selComp);
+    	});
+    	lockButton.setOnAction(e->{
+    		UICompanyBean selComp = compList.getSelectionModel().getSelectedItem();
+    		if(selComp!=null)
+    			selComp.getCompany().getAgent().sendLetter();
     	});
     	processJobButton.setOnAction(e->{
     		System.out.println("Process Job called.");

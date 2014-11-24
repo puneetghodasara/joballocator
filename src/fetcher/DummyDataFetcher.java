@@ -14,15 +14,16 @@ public class DummyDataFetcher implements DataFetcher {
 	static{
 		studs.add(new Student("101"));
 		studs.add(new Student("102"));
-		studs.add(new Student("103"));
-		studs.add(new Student("104"));
-		studs.add(new Student("105"));
-		studs.add(new Student("106"));
+//		studs.add(new Student("103"));
+//		studs.add(new Student("104"));
+//		studs.add(new Student("105"));
+//		studs.add(new Student("106"));
 		
 	
 		comps.add(new Company("Google", 1));
 		comps.add(new Company("MS", 1));
-		comps.add(new Company("FB", 1));
+//		comps.add(new Company("FB", 1));
+//		comps.add(new Company("WAY", 1));
 		
 	}
 	
@@ -45,19 +46,19 @@ public class DummyDataFetcher implements DataFetcher {
 	@Override
 	public ArrayList<Preference> fetchPreferences(String batch, int day, int slot) {
 		ArrayList<Preference> prefs = new ArrayList<>();
-		prefs.add(new Preference(9, comps.get(2), studs.get(0)));
-		prefs.add(new Preference(2, comps.get(1), studs.get(0)));
-		prefs.add(new Preference(10, comps.get(0), studs.get(0)));
+		prefs.add(new Preference(9, comps.get(1), studs.get(0)));
+		prefs.add(new Preference(2, comps.get(0), studs.get(0)));
+//		prefs.add(new Preference(10, comps.get(0), studs.get(0)));
 		
-		prefs.add(new Preference(1, comps.get(0), studs.get(1)));
-		prefs.add(new Preference(2, comps.get(2), studs.get(1)));
+		prefs.add(new Preference(1, comps.get(1), studs.get(1)));
+//		prefs.add(new Preference(2, comps.get(2), studs.get(1)));
 		
-		prefs.add(new Preference(1, comps.get(1), studs.get(2)));
-		prefs.add(new Preference(1, comps.get(1), studs.get(3)));
-		prefs.add(new Preference(2, comps.get(0), studs.get(3)));
-		
-		prefs.add(new Preference(1, comps.get(1), studs.get(4)));
-		prefs.add(new Preference(1, comps.get(1), studs.get(5)));
+//		prefs.add(new Preference(1, comps.get(1), studs.get(2)));
+//		prefs.add(new Preference(1, comps.get(1), studs.get(3)));
+//		prefs.add(new Preference(2, comps.get(0), studs.get(3)));
+//		
+//		prefs.add(new Preference(1, comps.get(1), studs.get(4)));
+//		prefs.add(new Preference(1, comps.get(1), studs.get(5)));
 		
 		return prefs;
 	}
