@@ -49,7 +49,8 @@ public class Main extends Application {
 //            stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
 //            stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
 
-            gotoLogin(null, false);
+//            gotoLogin(null, false);
+            UIProcessor.entry();
             
             primaryStage.show();
         } catch (Exception ex) {

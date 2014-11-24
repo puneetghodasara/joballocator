@@ -24,6 +24,7 @@ import store.Repository;
 import ui.bean.BeanConverter;
 import ui.bean.UICompanyBean;
 import ui.bean.UIOfferBean;
+import ui.bean.UIPrefBean;
 import ui.bean.UIStudentBean;
 import ui.comp.FilterableComboBox;
 import ui.comp.NumberedCell;
@@ -88,7 +89,7 @@ public class JobOfferController extends AnchorPane implements Initializable {
     	// Event listeners
     	actAdd.setOnAction(e->{
     		if(actTextBox.getSelectionModel().getSelectedIndex()!=-1){
-				UIStudentBean selectedItem = actTextBox.getSelectionModel().getSelectedItem();
+    			UIStudentBean selectedItem = actTextBox.getSelectionModel().getSelectedItem();
 	    		if(selectedItem!=null){
 	    			UIProcessor.processAddOffer(company,selectedItem,OfferStatus.ACTUAL_OFFER,actOffers.size()+1);
 	    		}	
@@ -98,7 +99,7 @@ public class JobOfferController extends AnchorPane implements Initializable {
     	});
     	wlAdd.setOnAction(e->{
     		if(wlTextBox.getSelectionModel().getSelectedIndex()!=-1){
-				UIStudentBean selectedItem = wlTextBox.getSelectionModel().getSelectedItem();
+    			UIStudentBean selectedItem = wlTextBox.getSelectionModel().getSelectedItem();
 	    		if(selectedItem!=null){
 	    			UIProcessor.processAddOffer(company,selectedItem,OfferStatus.WAITLIST_OFFER,wlOffers.size()+1);
 	    		}	
@@ -173,7 +174,7 @@ public class JobOfferController extends AnchorPane implements Initializable {
     	ArrayList<Student> students = GlobalContext.getLocalStore().getStudents();
 		ArrayList<UIStudentBean> uiStudentList = BeanConverter.convertStudentList(students);
     	return uiStudentList.stream()
-    			.filter(s->(s.getName().contains(userText) || s.getId().contains(userText)))
+    			.filter(s->(s.getStudent().getName().contains(userText) || s.getStudent().getRollno().contains(userText)))
     			.collect(Collectors.toList());
     }
     

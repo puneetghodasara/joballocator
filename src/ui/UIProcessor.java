@@ -7,6 +7,7 @@ import ui.bean.UICompanyBean;
 import ui.bean.UIDBLoginCredential;
 import ui.bean.UILoginCredential;
 import ui.bean.UIOfferBean;
+import ui.bean.UIPrefBean;
 import ui.bean.UIStudentBean;
 import api.bean.Company;
 import api.bean.Student;
@@ -15,6 +16,7 @@ import api.context.GlobalContext;
 import api.credential.DBCredential;
 import api.credential.LoginCredential;
 import controller.ActionProcessor;
+import controller.Processor;
 
 public class UIProcessor {
 
@@ -46,7 +48,7 @@ public class UIProcessor {
 
 	public static void processAddOffer(UICompanyBean comp, UIStudentBean selectedItem, OfferStatus offerstatus, int offerrank) {
 		Company company = comp.getCompany();
-		Student student = GlobalContext.getLocalStore().searchStudent(selectedItem.getId());
+		Student student = GlobalContext.getLocalStore().searchStudent(selectedItem.getStudent().getRollno());
 		ActionProcessor.processAddOffer(company,student,offerstatus,offerrank);
 		Main.showOfferPage(comp, true);
 	}
@@ -71,6 +73,12 @@ public class UIProcessor {
 		ArrayList<Company> compList = ActionProcessor.getCompaniesToShow();
 		ArrayList<UICompanyBean> uiCompList = BeanConverter.convert(compList);
 		Main.gotoJobReport(uiCompList);
+	}
+	
+	//TODO remove DEBUG METHOD
+	public static void entry(){
+		Processor.init();
+		processAllData();
 	}
 	
 	public static void exit() {

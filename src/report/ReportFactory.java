@@ -3,6 +3,9 @@ package report;
 import java.util.ArrayList;
 import java.util.List;
 
+import ui.bean.UICompanyBean;
+import api.bean.Company;
+import api.bean.Student;
 import api.context.GlobalContext;
 import api.report.TableReport;
 import api.report.TableReportFormat;
@@ -29,9 +32,17 @@ public class ReportFactory {
 		return ()->compReportData;
 	}
 	
-	public static TableReport generatePreferenceReport(){
+	public static TableReport generateOfferReport(UICompanyBean comp){
+		List<TableReportFormat> compReportData = new ArrayList<>();
+		comp.getCompany().getAgent().getOffers().stream().sorted().forEach(offer->{
+			compReportData.add(new CompanyReportFormat(offer));				
+		});
+		return ()->compReportData;
+	}
+	
+	public static TableReport generatePreferenceReport(List<Student> students){
 		List<TableReportFormat> prefReportData = new ArrayList<>();
-		GlobalContext.getLocalStore().getStudents().stream().forEach(stud->{
+		students.stream().forEach(stud->{
 			stud.getPreferences().stream().sorted().forEach(pref->{
 				prefReportData.add(new StudentPrefFormat(pref));				
 			});

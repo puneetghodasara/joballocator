@@ -47,7 +47,7 @@ public class CompanyReportFormat implements TableReportFormat{
 			try {
 				Field[] declaredFields = getClass().getDeclaredFields();
 				if(i<declaredFields.length)
-					return (SimpleStringProperty) declaredFields[i].get(new SimpleStringProperty());
+					return (SimpleStringProperty) declaredFields[i].get(this);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}

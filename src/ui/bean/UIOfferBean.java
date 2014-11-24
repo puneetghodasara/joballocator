@@ -9,8 +9,8 @@ import api.bean.offer.JobOffer;
 
 public class UIOfferBean {
 
+	private UICompanyBean uiCompBean;
 	private JobOffer offer;
-	private UICompanyBean uicompbean;
 
 	private StringProperty compname = new SimpleStringProperty();
 	private StringProperty jafno = new SimpleStringProperty();
@@ -20,22 +20,26 @@ public class UIOfferBean {
 	private StringProperty finalStatus = new SimpleStringProperty();
 	private SimpleObjectProperty<Button> action;
 	
-	public UIOfferBean(UICompanyBean uiCompanybean, JobOffer offer) {
+	public UIOfferBean(JobOffer jobOffer) {
 		super();
-		this.offer = offer;
-		this.uicompbean = uiCompanybean;
-		this.compname = new SimpleStringProperty(offer.getCompany().getCompanyName());
-		this.jafno = new SimpleStringProperty(String.valueOf(offer.getCompany().getJafNo()));
-		this.rollnumber = new SimpleStringProperty(offer.getStudent().getRollno());
-		this.studentname = new SimpleStringProperty(offer.getStudent().getName());
-		this.initialStatus = new SimpleStringProperty(offer.getInitStatus().toString());
-		this.finalStatus = new SimpleStringProperty(offer.getCurrentStatus().toString());
+		this.offer = jobOffer;
+		this.uiCompBean = new UICompanyBean(jobOffer.getCompany());
+		this.compname = new SimpleStringProperty(jobOffer.getCompany().getCompanyName());
+		this.jafno = new SimpleStringProperty(String.valueOf(jobOffer.getCompany().getJafNo()));
+		this.rollnumber = new SimpleStringProperty(jobOffer.getStudent().getRollno());
+		this.studentname = new SimpleStringProperty(jobOffer.getStudent().getName());
+		this.initialStatus = new SimpleStringProperty(jobOffer.getInitStatus().toString());
+		this.finalStatus = new SimpleStringProperty(jobOffer.getCurrentStatus().toString());
 		Button b = new Button("X");
 		b.setOnAction(e->{
 			System.out.println("CALLED");
-			UIProcessor.processRemOffer(uiCompanybean,this);
+			UIProcessor.processRemOffer(uiCompBean,this);
 		});
 		this.action = new SimpleObjectProperty<>(b);
+	}
+
+	public UIOfferBean() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public final StringProperty compnameProperty() {
@@ -64,8 +68,4 @@ public class UIOfferBean {
 		return offer;
 	}
 
-	public UICompanyBean getUICompBean(){
-		return uicompbean;
-	}
-	
 }

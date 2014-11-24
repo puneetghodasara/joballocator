@@ -32,27 +32,31 @@
 package ui;
 
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-import store.Repository;
-import ui.bean.JobOfferUI;
-import ui.bean.UICompanyBean;
-import ui.bean.UIOfferBean;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import org.controlsfx.dialog.Dialogs;
+
+import service.PrintTask;
+import ui.bean.UICompanyBean;
+import ui.bean.UIRepCompanyLetter;
+import ui.bean.UIRepStudentPref;
+import ui.bean.UIStudentBean;
+import api.bean.Student;
+import api.context.GlobalContext;
+
 
 /**
  * Login Controller.
@@ -67,21 +71,16 @@ public class JobReportController extends AnchorPane implements Initializable {
 	@FXML
 	Button print;
 	
-	@FXML Tab fullReportTab;
-	@FXML TreeTableView<JobOfferUI> offerTable;
+	@FXML TabPane tabPane;
 	
 	@FXML Tab compTab;
 	@FXML ListView<UICompanyBean> companySelectList;
-	@FXML TreeTableView<JobOfferUI> companywiseOfferTable;
+	@FXML Pane companywiseOfferTableContainer;
 	
-	@FXML Tab studentTab;
-	@FXML TreeTableView<JobOfferUI> studentwiseOfferTable;
+	@FXML Tab studTab;
+	@FXML ListView<UIStudentBean> studentSelectList;
+	@FXML Pane studentPrefTableContainer;
 	
-	TreeTableColumn<JobOfferUI, String> compNameColumn = new TreeTableColumn<>("Compnay Name");
-	TreeTableColumn<JobOfferUI, String> jafNoColumn = new TreeTableColumn<>("JAF");
-	TreeTableColumn<JobOfferUI, String> rollNumberColumn = new TreeTableColumn<>("Roll No");
-	TreeTableColumn<JobOfferUI, String> initStatusColumn = new TreeTableColumn<>("Initial");
-	TreeTableColumn<JobOfferUI, String> finalStatusColumn = new TreeTableColumn<>("Final");
 	
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -89,116 +88,82 @@ public class JobReportController extends AnchorPane implements Initializable {
     	close.setOnAction(e->{
     		UIProcessor.exit();
     	});
-    	
-    	fullReportTab.setOnSelectionChanged(e->{
-    		prepareFullReportView();
+    	print.setOnAction(e->{
+    		print();
     	});
+    	
     	compTab.setOnSelectionChanged(e->{
-    		prepareCompanyReportView(companySelectList.getSelectionModel().getSelectedItem());
+//    		prepareCompanyReportView(companySelectList.getSelectionModel().getSelectedItem());
     	});
     	companySelectList.getSelectionModel().selectedItemProperty().addListener((e,oldComp,newComp)->{
-    		if(newComp!=null)
-    			prepareCompanyReportView(newComp);
+    		if(newComp!=null){
+    			// Show Company Letter
+    			companywiseOfferTableContainer.getChildren().clear();
+    			companywiseOfferTableContainer.getChildren().add(new UIRepCompanyLetter(newComp));
+    			
+    		}
     	});
-    	studentTab.setOnSelectionChanged(e->{
-    		prepareStudentReportView();
+    	studentSelectList.getSelectionModel().selectedItemProperty().addListener((e,oldStud,newStud)->{
+    		if(newStud!=null){
+    			// Show Company Letter
+    			studentPrefTableContainer.getChildren().clear();
+    			studentPrefTableContainer.getChildren().add(new UIRepStudentPref(newStud));
+    			
+    		}
     	});
     	
-    	compNameColumn.setCellValueFactory(cellData->cellData.getValue().getValue().compnameProperty());
-    	jafNoColumn.setCellValueFactory(cellData->cellData.getValue().getValue().jafnoProperty());
-    	rollNumberColumn.setCellValueFactory(cellData->cellData.getValue().getValue().rollnumberProperty());
-    	initStatusColumn.setCellValueFactory(cellData->cellData.getValue().getValue().initialStatusProperty());
-    	finalStatusColumn.setCellValueFactory(cellData->cellData.getValue().getValue().finalStatusProperty());
-	
-    	prepareFullReportView();
+    	/*rollNum.setOnKeyReleased(e->{
+    		String text = rollNum.getText();
+    		List<Student> matchedStuds = allStudents.stream()
+    				.filter(stud->stud.getRollno().matches(text))
+    				.collect(Collectors.toList());
+    		refreshPreferenceReport(matchedStuds);
+    	});*/
+    	
     }
 
-    private ArrayList<UICompanyBean> uiCompList;
+    
+//    private void refreshPreferenceReport(List<Student> studs) {
+//    	TableView<TableReportFormat> a = new TableView<>();
+////    	TableReport companyReport = ReportFactory.generateCompanyReport();
+//    	TableReport companyReport = ReportFactory.generatePreferenceReport(studs);
+//    	TableReportImpl rep = new TableReportImpl(a, companyReport, 6);
+//    	rep.executeReport();
+//    	prefTab.setContent(a);
+//	}
+
+	private void print() {
+    	
+    	
+    	Tab selTab = tabPane.getSelectionModel().getSelectedItem();
+    	Node content = selTab.getContent();
+    	PrintTask ps = new PrintTask(content);
+    	Dialogs.create().title("Printing").masthead("printing").showWorkerProgress(ps);
+    	ps.print();
+	}
+
+	private List<UIStudentBean> allStudents;
+	private ArrayList<UICompanyBean> uiCompList = new ArrayList<>();
+	
 	public void setCompanies(ArrayList<UICompanyBean> uiCompList) {
 		this.uiCompList = uiCompList;
 
 		companySelectList.getItems().clear();
 		companySelectList.getItems().addAll(uiCompList);
 		
-		prepareStudentReportView();
-		prepareFullReportView();
-		
 		companySelectList.getSelectionModel().selectFirst();
-		prepareCompanyReportView(companySelectList.getSelectionModel().getSelectedItem());
+		
+		allStudents = GlobalContext.getLocalStore().getStudents()
+				.stream()
+				.map(stud->new UIStudentBean(stud))
+				.collect(Collectors.toList());
+		
+		studentSelectList.getItems().clear();
+		studentSelectList.getItems().addAll(allStudents);
+		
+		studentSelectList.getSelectionModel().selectFirst();
+		
 	}
 	
-	private void prepareFullReportView(){
-		clearColumns();
-		
-		offerTable.getColumns().add(compNameColumn);
-		offerTable.getColumns().add(jafNoColumn);
-		offerTable.getColumns().add(rollNumberColumn);
-		offerTable.getColumns().add(initStatusColumn);
-		offerTable.getColumns().add(finalStatusColumn);
-		
-		TreeItem<JobOfferUI> root = new TreeItem<>(new JobOfferUI());
-		uiCompList.stream()
-		.sorted()
-		.forEach(comp->{
-    		TreeItem<JobOfferUI> compRoot = new TreeItem<>(new JobOfferUI(comp));
-    		comp.getAllOffers().stream().forEach(offer->
-	    		compRoot.getChildren().add(new TreeItem<>(new JobOfferUI(comp, offer)))
-	    	);
-    		root.getChildren().add(compRoot);
-//    		compRoot.setExpanded(true);
-		});
-		
-		offerTable.setRoot(root);
-		root.setExpanded(true);
-	}
-	
-	private void prepareCompanyReportView(UICompanyBean comp){
-		if(comp==null)
-			return;
-		clearColumns();
-		TreeItem<JobOfferUI> compRoot = new TreeItem<>(new JobOfferUI(comp));
-		comp.getAllOffers().stream().forEach(offer->
-    		compRoot.getChildren().add(new TreeItem<>(new JobOfferUI(comp, offer)))
-    	);
-		
-		companywiseOfferTable.setRoot(compRoot);
-		companywiseOfferTable.getColumns().add(compNameColumn);
-		companywiseOfferTable.getColumns().add(jafNoColumn);
-		companywiseOfferTable.getColumns().add(rollNumberColumn);
-		companywiseOfferTable.getColumns().add(initStatusColumn);
-		companywiseOfferTable.getColumns().add(finalStatusColumn);
-		compRoot.setExpanded(true);
-	}
 
-	private void prepareStudentReportView(){
-		clearColumns();
-		
-		studentwiseOfferTable.getColumns().add(rollNumberColumn);
-		studentwiseOfferTable.getColumns().add(compNameColumn);
-		studentwiseOfferTable.getColumns().add(jafNoColumn);
-		studentwiseOfferTable.getColumns().add(initStatusColumn);
-		studentwiseOfferTable.getColumns().add(finalStatusColumn);
-		
-		TreeItem<JobOfferUI> root = new TreeItem<>(new JobOfferUI());
-		uiCompList.stream().flatMap(comp->comp.getAcceptedOffers().stream())
-		.sorted((o1,o2)->{return o1.getOffer().getStudent().getRollno().compareTo(o1.getOffer().getStudent().getRollno());})
-		.forEach(offer->{
-    		root.getChildren().add(new TreeItem<>(new JobOfferUI(offer.getUICompBean(), offer)));
-		});
-		
-		studentwiseOfferTable.setRoot(root);
-		root.setExpanded(true);
-	}
-
-	private void clearColumns(){
-		offerTable.setRoot(null);
-		offerTable.getColumns().clear();
-		
-		studentwiseOfferTable.setRoot(null);
-		studentwiseOfferTable.getColumns().clear();
-		
-		companywiseOfferTable.setRoot(null);
-		companywiseOfferTable.getColumns().clear();
-	}
-	
 }

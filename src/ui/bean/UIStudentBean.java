@@ -4,25 +4,18 @@ import api.bean.Student;
 
 public class UIStudentBean {
 
-	String id;
-	String name;
+	private Student student;
 	
-	
-	public UIStudentBean(String id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-	public UIStudentBean(Student stud) {
-		this.id = stud.getRollno();
-		this.name = stud.getName();
-	}
-	public String getId() {
-		return id;
-	}
-	public String getName() {
-		return name;
+	public UIStudentBean(Student student) {
+		this.student = student;
 	}
 	
-	
+	public Student getStudent() {
+		return student;
+	}
+
+	@Override
+	public String toString() {
+		return student.toString();
+	}
 }

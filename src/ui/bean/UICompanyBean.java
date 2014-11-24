@@ -25,7 +25,7 @@ public class UICompanyBean implements Comparable<UICompanyBean> {
 		return comp.getAgent().getOffers()
 				.stream()
 				.filter(o->o.getCurrentStatus().equals(OfferStatus.ACTUAL_OFFER))
-				.map(o->new UIOfferBean(this,o))
+				.map(o->new UIOfferBean(o))
 				.collect(Collectors.toList());
 				
 	}
@@ -33,7 +33,7 @@ public class UICompanyBean implements Comparable<UICompanyBean> {
 		return comp.getAgent().getOffers()
 				.stream()
 				.filter(o->o.getCurrentStatus().equals(OfferStatus.WAITLIST_OFFER))
-				.map(o->new UIOfferBean(this,o))
+				.map(o->new UIOfferBean(o))
 				.collect(Collectors.toList());
 				
 	}
@@ -41,14 +41,14 @@ public class UICompanyBean implements Comparable<UICompanyBean> {
 		return comp.getAgent().getOffers()
 				.stream()
 				.filter(o->o.getCurrentStatus().equals(OfferStatus.ACCEPTED))
-				.map(o->new UIOfferBean(this,o))
+				.map(o->new UIOfferBean(o))
 				.collect(Collectors.toList());
 				
 	}
 	public List<UIOfferBean> getAllOffers(){
 		return comp.getAgent().getOffers()
 				.stream()
-				.map(o->new UIOfferBean(this,o))
+				.map(o->new UIOfferBean(o))
 				.collect(Collectors.toList());
 				
 	}
