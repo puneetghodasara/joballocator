@@ -52,6 +52,7 @@ import org.controlsfx.dialog.Dialogs;
 import service.PrintTask;
 import ui.bean.UICompanyBean;
 import ui.bean.UIRepCompanyLetter;
+import ui.bean.UIRepStudentJob;
 import ui.bean.UIRepStudentPref;
 import ui.bean.UIStudentBean;
 import api.bean.Student;
@@ -81,6 +82,8 @@ public class JobReportController extends AnchorPane implements Initializable {
 	@FXML ListView<UIStudentBean> studentSelectList;
 	@FXML Pane studentPrefTableContainer;
 	
+	@FXML Tab jobTab;
+	@FXML Pane jobTableContainer;
 	
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -111,6 +114,8 @@ public class JobReportController extends AnchorPane implements Initializable {
     			
     		}
     	});
+    	
+    	jobTableContainer.getChildren().add(new UIRepStudentJob());
     	
     	/*rollNum.setOnKeyReleased(e->{
     		String text = rollNum.getText();

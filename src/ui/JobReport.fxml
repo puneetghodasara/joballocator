@@ -39,7 +39,7 @@
                               </HBox>
                            </content>
                         </Tab>
-                        <Tab fx:id="studTab" closable="false" text="Company Wise Report">
+                        <Tab fx:id="studTab" closable="false" text="Student Preference Report">
                            <content>
                               <HBox>
                                  <children>
@@ -47,6 +47,11 @@
                                     <AnchorPane fx:id="studentPrefTableContainer" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="jobTab" closable="false" text="Job Report">
+                           <content>
+                                    <AnchorPane fx:id="jobTableContainer" HBox.hgrow="ALWAYS" />
                            </content>
                         </Tab>
                         
