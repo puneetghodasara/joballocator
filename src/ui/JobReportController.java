@@ -55,7 +55,6 @@ import ui.bean.UIRepCompanyLetter;
 import ui.bean.UIRepStudentJob;
 import ui.bean.UIRepStudentPref;
 import ui.bean.UIStudentBean;
-import api.bean.Student;
 import api.context.GlobalContext;
 
 

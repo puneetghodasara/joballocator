@@ -65,6 +65,11 @@ public class DummyDataFetcher implements DataFetcher {
 
 	@Override
 	public boolean testConnection() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 

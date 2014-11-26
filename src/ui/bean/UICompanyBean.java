@@ -3,6 +3,8 @@ package ui.bean;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +21,10 @@ public class UICompanyBean implements Comparable<UICompanyBean> {
 		
 	public StringProperty getDisplayNameProperty(){
 		return new SimpleStringProperty(comp.getCompanyName() + " : " + comp.getJafNo());
+	}
+	
+	public ReadOnlyBooleanProperty letterSentProperty(){
+		return new SimpleBooleanProperty(this.getCompany().getAgent().isLetterSent());
 	}
 	
 	public List<UIOfferBean> getActualOffers(){

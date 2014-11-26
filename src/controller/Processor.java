@@ -84,7 +84,7 @@ public class Processor {
 						.collect(Collectors.toList());
 			}
 			System.out.println("Preference : "+prefComp.size());
-			// Step 3 (cont) :: if no preference added, add all companies (making sure they go at last in list)
+			// Step 3 (continue) :: if no preference added, add all companies (making sure they go at last in list)
 			if(prefComp.size()==0){
 				boolean extraPref = companies.stream().filter(c->c.getAgent().hasOfferFor(aStud)).findAny().isPresent();
 				if(extraPref){

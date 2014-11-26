@@ -2,6 +2,8 @@ package ui;
 
 import java.util.ArrayList;
 
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import ui.bean.BeanConverter;
 import ui.bean.UICompanyBean;
 import ui.bean.UIDBLoginCredential;
@@ -9,6 +11,8 @@ import ui.bean.UILoginCredential;
 import ui.bean.UIOfferBean;
 import ui.bean.UIPrefBean;
 import ui.bean.UIStudentBean;
+import ui.comp.DialogUtil;
+import ui.comp.DumbTask;
 import api.bean.Company;
 import api.bean.Student;
 import api.bean.offer.OfferStatus;
@@ -26,7 +30,7 @@ public class UIProcessor {
 		if(validLogin)
 			Main.gotoDBLogin(null, false);
 		else{
-			Main.showError("Login Error",GlobalContext.LOGIN_ATTEMPT_FAILURE);
+			DialogUtil.showError("Login Error",GlobalContext.LOGIN_ATTEMPT_FAILURE);
 //			Main.gotoLogin(GlobalContext.LOGIN_ATTEMPT_FAILURE, true);
 		}
 	}
@@ -36,7 +40,7 @@ public class UIProcessor {
 		
 		boolean validCred = ActionProcessor.process(dbCred);
 		if(!validCred){
-			Main.showError("DB Login Error", GlobalContext.DATA_ATTEMPT_FAILURE);
+			DialogUtil.showError("DB Login Error", GlobalContext.DATA_ATTEMPT_FAILURE);
 //			Main.gotoDBLogin(GlobalContext.DATA_ATTEMPT_FAILURE, true);
 			return;
 		}

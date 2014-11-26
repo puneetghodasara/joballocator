@@ -31,7 +31,7 @@ import api.context.GlobalContext;
  */
 public class Main extends Application {
 
-    private static Stage stage;
+    public static Stage stage;
     private final double MINIMUM_WINDOW_WIDTH = 390.0;
     private final double MINIMUM_WINDOW_HEIGHT = 500.0;
 
@@ -153,15 +153,6 @@ public class Main extends Application {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }		
-	}
-
-	public static boolean showError(String title, String message) {
-		Action response = Dialogs.create().owner(stage)
-				.title(title)
-				.message(message)
-				.style(DialogStyle.NATIVE)
-				.showError();
-		return (response==Dialog.Actions.OK)?true:false;
 	}
 
 }

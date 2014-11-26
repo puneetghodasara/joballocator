@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import org.controlsfx.dialog.Dialogs;
 
 import api.context.GlobalContext;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import ui.bean.UICompanyBean;
 import ui.bean.UIOfferBean;
+import ui.comp.DialogUtil;
 import ui.comp.NumberedCell;
 
 /**
@@ -75,14 +77,13 @@ public class NewInfoController extends AnchorPane implements Initializable {
     	
     	compNameLabel.textProperty().bind(compList.getSelectionModel().selectedItemProperty().asString());
     	
-    	
     	// event listeners
     	editJobButton.setOnAction(e->{
     		UICompanyBean selComp = compList.getSelectionModel().getSelectedItem();
     		if(selComp==null)
     			return;
     		if(selComp.getCompany().getAgent().isLetterSent())
-    			Dialogs.create().title("Error").message("Company Offer Letter is locked. You can not modify now.").showError();
+    			DialogUtil.showError("Error", "Company Offer Letter is locked. You can not modify now.");
     		else
     			UIProcessor.processCallEditOffer(selComp);
     	});
@@ -90,6 +91,8 @@ public class NewInfoController extends AnchorPane implements Initializable {
     		UICompanyBean selComp = compList.getSelectionModel().getSelectedItem();
     		if(selComp!=null)
     			selComp.getCompany().getAgent().sendLetter();
+    		if(selComp.getCompany().getAgent().isLetterSent())
+    			DialogUtil.showInformation("Success", "Company Offer Letter is locked successfully.");
     	});
     	processJobButton.setOnAction(e->{
     		System.out.println("Process Job called.");
