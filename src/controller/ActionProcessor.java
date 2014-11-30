@@ -88,10 +88,13 @@ public class ActionProcessor {
 	 * TODO
 	 */
 	public static void processAllOffers() {
-		int iter=5;
+		int iter=10;
 		while(iter-->0){
-			Processor.process();
+			boolean finished = Processor.process();
+			if(finished)
+				break;
 			System.out.println("AGAIN  "+iter);
 		}
+		System.out.println("I :"+iter);
 	}
 }

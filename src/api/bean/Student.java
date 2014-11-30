@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import api.bean.offer.JobOffer;
 import api.bean.offer.OfferTaker;
+import api.context.GlobalContext;
 import api.exception.IllegalPreferenceException;
 
 /**
@@ -33,6 +34,11 @@ public class Student implements OfferTaker, Comparable<Student> {
 	@Override
 	public void accept(JobOffer offer) {
 		acceptedOffer = offer;
+//		List<Company> rejectedComps = GlobalContext.getLocalStore().getCompanies().stream().filter(c->c.getAgent().hasOfferFor(this)).collect(Collectors.toList());
+//		for(Company c : rejectedComps){
+//			System.out.println("Student rejecting "+c);
+//			c.getAgent().getOfferOf(this).setRejected();
+//		}
 	}
 	
 	/**

@@ -22,6 +22,7 @@ public class Processor {
 	
 	private static Set<Student> offeredStudents;
 	private static ArrayList<Company> companies;
+	private static List<Company> prefComp;
 	
 	/**
 	 * Initializing local store.
@@ -67,7 +68,7 @@ public class Processor {
 							.collect(Collectors.toSet());
 		
 		for(Student aStud : offeredStudents){
-			List<Company> prefComp = null;
+			
 			System.out.println("\nProcessing : "+aStud.getRollno());
 			// Step 3 :: If student has not filled preferences
 			if(aStud.hasNoPreference()){
@@ -88,6 +89,15 @@ public class Processor {
 					System.out.println("Company ADDED for "+aStud);
 				}
 			}
+			
+			List<Company> notAddedComps = companies.stream().filter(c->c.getAgent().hasOfferFor(aStud)).collect(Collectors.toList());
+			for(Company comp : notAddedComps){
+				if(!prefComp.contains(comp)){
+					System.out.println("Forcefully added Comp pref");
+					prefComp.add(comp);
+				}
+			}
+			
 			// Step 4 : 
 			// 		if student is unplaced and get an actual job, student accepts it.
 			//		if student is placed and get an actual job, student rejects it and uplift of other job happens.
@@ -98,13 +108,12 @@ public class Processor {
 			
 			for(Company comp : prefComp){
 				
-				System.out.print("\n Company :"+comp.getCompanyName());
-				
 				if(!comp.getAgent().isLetterSent()){
 					// Hey, Wait student is praying for company which is lazy
 					noOfHolds++;
 					break;
 				}
+				System.out.print("\n Company :"+comp.getCompanyName());
 				
 				JobOffer matchedOffer = comp.getAgent().getOfferOf(aStud);
 				if(matchedOffer==null)
@@ -121,7 +130,8 @@ public class Processor {
 					matchedOffer.setRejected();
 				}else if(status.equals(OfferStatus.WAITLIST_OFFER)){
 					System.out.print("  HOLD");
-					noOfHolds++;
+					if(!comp.isSealed())
+						noOfHolds++;
 				}
 			}
 		}

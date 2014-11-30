@@ -69,6 +69,7 @@ public class JobOffer implements Offer,Comparable<JobOffer> {
 		notifySubscriber();
 	}
 	public void setUplifted(){
+		System.out.println(this.getCompany()+":"+this.getStudent()+"gotUplifted");
 		if(this.currentStatus!=OfferStatus.WAITLIST_OFFER)
 			return;		
 		this.currentStatus = OfferStatus.ACTUAL_OFFER;
