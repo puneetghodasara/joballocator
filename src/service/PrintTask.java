@@ -1,31 +1,40 @@
 package service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import javafx.concurrent.Task;
 import javafx.print.PageLayout;
 import javafx.print.Printer;
-import javafx.print.PrinterJob;
 import javafx.scene.Node;
-import javafx.scene.control.TableView;
-import javafx.scene.transform.Scale;
-import ui.bean.UIOfferBean;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import ui.bean.UIRepStudentJob;
 import api.context.GlobalContext;
 
 public class PrintTask extends Task<Void>{
 
 	
-	private TableView<UIOfferBean> content;
+	private AnchorPane content;
 	private Printer printer;
 	private String msg;
 	
 	public PrintTask(Node node) {
-		content = new UIRepStudentJob();
 		printer = Printer.getDefaultPrinter();
     	PageLayout pageLayout = printer.getDefaultPageLayout();
     	
     	msg = "";
-    	msg+="<table>";
-    	content.getItems().stream().forEach(us->{
+    	msg+="<table border='1px solid black'>";
+    	
+    	msg+="<tr>";
+		msg+="<td>Company Name</td>";
+		msg+="<td>JAF No</td>";
+		msg+="<td>Roll Number</td>";
+		msg+="<td>Student Name</td>";
+		msg+="<td>Status</td>";
+		msg+="</tr>";
+		
+    	 (new UIRepStudentJob()).getItems().stream().forEach(us->{
     		msg+="<tr>";
     		msg+="<td>"+us.compnameProperty().get()+"</td>";
     		msg+="<td>"+us.jafnoProperty().get()+"</td>";
@@ -34,8 +43,11 @@ public class PrintTask extends Task<Void>{
     		msg+="<td>"+us.finalStatusProperty().get()+"</td>";
     		msg+="</tr>";
     	});
-    	
+    	msg+="</table>";
+    	TextArea ta = new TextArea(msg);
+    	content = new AnchorPane();
     	content.setMaxWidth(pageLayout.getPrintableWidth());
+    	content.getChildren().add(ta);
 //    	content.getTransforms().add(new Scale(scaleX, 1));
 	}
 	
@@ -48,15 +60,23 @@ public class PrintTask extends Task<Void>{
 		updateMessage("1");
 		updateProgress(-1, 100);
 
+		File fis = new File("list.html");
+		FileOutputStream fos = new FileOutputStream(fis);
+		fos.write(msg.getBytes(), 0, msg.getBytes().length);
+		fos.flush();
+		fos.close();
+
+		// TODO make it windows independent
+		Runtime.getRuntime().exec("explorer list.html");
     	
-    	PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
-    	boolean status = printerJob.printPage(content);
-    	
-    	System.out.println(status);
-    	printerJob.endJob();
-		
-    	System.out.println(printerJob.getJobStatus());
-    	
+//    	PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
+//    	boolean status = printerJob.printPage(content);
+//    	
+//    	System.out.println(status);
+//    	printerJob.endJob();
+//		
+//    	System.out.println(printerJob.getJobStatus());
+//    	
     	updateMessage("1");
 		updateProgress(100, 100);
     	
