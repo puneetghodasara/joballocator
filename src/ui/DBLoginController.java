@@ -49,15 +49,15 @@ import ui.bean.UIDBLoginCredential;
  * Login Controller.
  */
 public class DBLoginController extends AnchorPane implements Initializable {
-
-	@FXML
-    TextField ip;
-	@FXML
-    TextField dbname;
-    @FXML
-    TextField username;
-    @FXML
-    PasswordField password;
+//
+//	@FXML
+//    TextField ip;
+//	@FXML
+//    TextField dbname;
+//    @FXML
+//    TextField username;
+//    @FXML
+//    PasswordField password;
     @FXML
 	TextField batch;
 	@FXML
@@ -84,10 +84,10 @@ public class DBLoginController extends AnchorPane implements Initializable {
         slot.setText(String.valueOf(date.getDayOfMonth()>5?1:(time.getHour()>22?2:1)));
         
         loginButton.setOnAction(e->{
-        	defaultDB.setIp(ip.getText());
-        	defaultDB.setDbname(dbname.getText());
-        	defaultDB.setUsername(username.getText());
-        	defaultDB.setPassword(password.getText());
+//        	defaultDB.setIp(ip.getText());
+//        	defaultDB.setDbname(dbname.getText());
+//        	defaultDB.setUsername(username.getText());
+//        	defaultDB.setPassword(password.getText());
 
         	if(!canSet(batch.getText(),day.getText(),slot.getText())){
             	errorMsg.setText("Incorrect batch/day/slot.");
@@ -119,9 +119,9 @@ public class DBLoginController extends AnchorPane implements Initializable {
 	public void setDefaultBean(UIDBLoginCredential defaultDB) {
 		this.defaultDB = defaultDB;
 		errorMsg.setText("");
-        ip.setText(defaultDB.getIp());
-        dbname.setText(defaultDB.getDbname());
-        username.setText(defaultDB.getUsername());
+//        ip.setText(defaultDB.getIp());
+//        dbname.setText(defaultDB.getDbname());
+//        username.setText(defaultDB.getUsername());
 
 	}
 

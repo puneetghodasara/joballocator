@@ -57,6 +57,7 @@ public class DBDataFetcher implements DataFetcher{
 	}
 	
 	private static final String STUD_QRY = "select distinct "+GlobalContext.STUDENTID_COLUMN
+			+ ","+ GlobalContext.STUDENTNAME_COLUMN
 			+ " from "+GlobalContext.STUDENT_TABLE
 			+ " where "+GlobalContext.BATCH_COLUMN+"=? ";
 //			+ "and "+GlobalContext.DAY_COLUMN+"=? and "+GlobalContext.SLOT_COLUMN+"=? ";
@@ -78,7 +79,8 @@ public class DBDataFetcher implements DataFetcher{
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
 				String rollno = rs.getString(GlobalContext.STUDENTID_COLUMN);
-				studentList.add(new Student(rollno));
+				String name = rs.getString(GlobalContext.STUDENTNAME_COLUMN);
+				studentList.add(new Student(rollno, name));
 			}
 			rs.close();
 		} catch (SQLException e) {

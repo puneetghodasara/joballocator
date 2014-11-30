@@ -23,10 +23,10 @@ public class Student implements OfferTaker {
 
 	private JobOffer acceptedOffer = null;
 	
-	public Student(String rollno) {
+	public Student(String rollno, String name) {
 		super();
 		this.rollno = rollno;
-		this.name = "Default";
+		this.name = name;
 	}
 
 	@Override

@@ -13,7 +13,6 @@ import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.DialogStyle;
 import org.controlsfx.dialog.Dialogs;
 
-import service.PrintTask;
 import ui.bean.UICompanyBean;
 import ui.bean.UIDBLoginCredential;
 import javafx.application.Application;
@@ -85,7 +84,7 @@ public class Main extends Application {
     }
     
 	public static void exit() {
-		PrintTask.es.shutdownNow();
+		GlobalContext.es.shutdownNow();
 		stage.close();
 	}
 
@@ -106,9 +105,10 @@ public class Main extends Application {
 	public static void gotoDBLogin(String msg, boolean refresh) {
 		System.out.println("Called DB Page");
         UIDBLoginCredential defaultDB = new UIDBLoginCredential();
-        defaultDB.setIp("10.99.0.26");
-        defaultDB.setDbname("placements");
-        defaultDB.setUsername("jobuser");
+        defaultDB.setIp(GlobalContext.DB_HOST_NAME);
+        defaultDB.setDbname(GlobalContext.DB_SCHMEA_NAME);
+        defaultDB.setUsername(GlobalContext.DB_USER_NAME);
+        defaultDB.setPassword(GlobalContext.DB_PASSWORD);
 
         try {
 			if(!refresh)

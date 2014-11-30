@@ -29,6 +29,15 @@ public class DialogUtil {
 		return (response==Dialog.Actions.OK)?true:false;
 	}
 	
+	public static boolean showConfirm(String title, String message) {
+		Action response = Dialogs.create().owner(Main.stage)
+				.title(title)
+				.message(message)
+				.style(DialogStyle.NATIVE)
+				.showConfirm();
+		return (response==Dialog.Actions.YES)?true:false;
+	}
+	
 	public static void showProgress(Worker<?> worker){
 		Dialogs.create().title("Printing").masthead("printing").showWorkerProgress(worker);
 	}

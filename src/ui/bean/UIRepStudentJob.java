@@ -46,7 +46,7 @@ public class UIRepStudentJob extends TableView<UIOfferBean>{
 		this.getColumns().add(jafNoColumn);
 		this.getColumns().add(rollNumberColumn);
 		this.getColumns().add(studNameColumn);
-		this.getColumns().add(initStatusColumn);
+//		this.getColumns().add(initStatusColumn);
 		this.getColumns().add(finalStatusColumn);
 		
 		AnchorPane.setTopAnchor(this,0d);

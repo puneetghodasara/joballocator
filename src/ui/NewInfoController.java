@@ -3,6 +3,7 @@ package ui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
 import org.controlsfx.dialog.Dialogs;
 
@@ -96,12 +97,21 @@ public class NewInfoController extends AnchorPane implements Initializable {
     	});
     	processJobButton.setOnAction(e->{
     		System.out.println("Process Job called.");
-    		UIProcessor.processAllData();
+    		long lockedComp = companies.stream().filter(uc->uc.getCompany()
+    						.getAgent()
+    						.isLetterSent()).count();
+    		if(lockedComp!=companies.size()) {
+				boolean showError = DialogUtil.showConfirm("Warning", "Only "+lockedComp+" has been locked. Do you want to proceed?");
+				if(showError)
+					UIProcessor.processAllData();
+			}
     	});
     }
 
+    ArrayList<UICompanyBean> companies = new ArrayList<>();
     public void setCompanies(ArrayList<UICompanyBean> companies){
     	// Adding companies
+    	this.companies = companies;
     	companies.forEach(comp->{
     		compList.getItems().add(comp);
     	});

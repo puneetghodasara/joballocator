@@ -27,6 +27,11 @@ public class Processor {
 	 * Initializing local store.
 	 */
 	public static void init(){
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		// Step 1 :: Get all companies of a day
 		companies = GlobalContext.getDataFetcher().fetchCompanies(GlobalContext.BATCH, GlobalContext.DAY, GlobalContext.SLOT);

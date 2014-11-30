@@ -1,7 +1,12 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
+import org.controlsfx.dialog.Dialogs;
+
+import javafx.application.Platform;
+import ui.comp.DialogUtil;
 import api.bean.Company;
 import api.bean.Student;
 import api.bean.offer.JobOffer;
@@ -28,11 +33,21 @@ public class ActionProcessor {
 		GlobalContext.DAY = dbCred.getDay();
 		GlobalContext.SLOT = dbCred.getSlot();
 		
-		
 		// Test the status and return
 		boolean status = GlobalContext.getDataFetcher().testConnection();
-		if(status)
-			Processor.init();
+		if(status){
+			InitProcessor init = new InitProcessor();
+			Dialogs.create().title("Processing").masthead("Fetching Data").showWorkerProgress(init);					
+
+			GlobalContext.es.submit(init);
+			try {
+				init.get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		return status;
 	}

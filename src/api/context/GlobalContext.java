@@ -1,5 +1,8 @@
 package api.context;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import store.Repository;
 import api.credential.Authenticator;
 import api.fetcher.DataFetcher;
@@ -34,6 +37,7 @@ public class GlobalContext {
 	public static final String PROFILEID_COLUMN = "jafsrno";
 	public static final String PREF_RANK_COLUMN = "preference";
 	public static final String STUDENTID_COLUMN = "rollno";
+	public static final String STUDENTNAME_COLUMN = "name";
 	public static final String BATCH_COLUMN = "batch";
 	public static final String DAY_COLUMN = "day";
 	public static final String SLOT_COLUMN = "slot";
@@ -55,4 +59,6 @@ public class GlobalContext {
 	public static Authenticator getAuthenticator(){
 		return new DummyAuthenticator();
 	}
+
+	public static ExecutorService es = Executors.newSingleThreadExecutor();
 }

@@ -12,8 +12,8 @@ public class DummyDataFetcher implements DataFetcher {
 	static ArrayList<Student> studs = new ArrayList<>();
 	static ArrayList<Company> comps = new ArrayList<>();
 	static{
-		studs.add(new Student("101"));
-		studs.add(new Student("102"));
+		studs.add(new Student("101","Def"));
+		studs.add(new Student("102","Def1"));
 //		studs.add(new Student("103"));
 //		studs.add(new Student("104"));
 //		studs.add(new Student("105"));

@@ -1,29 +1,46 @@
 package service;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import ui.bean.UIRepStudentJob;
 import javafx.concurrent.Task;
 import javafx.print.PageLayout;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TableView;
+import javafx.scene.transform.Scale;
+import ui.bean.UIOfferBean;
+import ui.bean.UIRepStudentJob;
+import api.context.GlobalContext;
 
 public class PrintTask extends Task<Void>{
 
 	
-	public static ExecutorService es = Executors.newSingleThreadExecutor();
+	private TableView<UIOfferBean> content;
+	private Printer printer;
+	private String msg;
 	
-	private Node content;
 	public PrintTask(Node node) {
 		content = new UIRepStudentJob();
-		
+		printer = Printer.getDefaultPrinter();
+    	PageLayout pageLayout = printer.getDefaultPageLayout();
+    	
+    	msg = "";
+    	msg+="<table>";
+    	content.getItems().stream().forEach(us->{
+    		msg+="<tr>";
+    		msg+="<td>"+us.compnameProperty().get()+"</td>";
+    		msg+="<td>"+us.jafnoProperty().get()+"</td>";
+    		msg+="<td>"+us.rollnumberProperty().get()+"</td>";
+    		msg+="<td>"+us.studentnameProperty().get()+"</td>";
+    		msg+="<td>"+us.finalStatusProperty().get()+"</td>";
+    		msg+="</tr>";
+    	});
+    	
+    	content.setMaxWidth(pageLayout.getPrintableWidth());
+//    	content.getTransforms().add(new Scale(scaleX, 1));
 	}
 	
 	public void print(){
-    	es.submit(this);
+    	GlobalContext.es.submit(this);
 	}
 
 	@Override
@@ -31,9 +48,6 @@ public class PrintTask extends Task<Void>{
 		updateMessage("1");
 		updateProgress(-1, 100);
 
-    	Printer printer = Printer.getDefaultPrinter();
-    	PageLayout pageLayout = printer.getDefaultPageLayout();
-    	
     	
     	PrinterJob printerJob = PrinterJob.createPrinterJob(printer);
     	boolean status = printerJob.printPage(content);
