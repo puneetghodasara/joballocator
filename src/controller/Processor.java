@@ -54,11 +54,7 @@ public class Processor {
 //		ActionProcessor.processAddOffer(companies.get(2), students.get(0), OfferStatus.WAITLIST_OFFER, 0);
 		
 		
-		// Step 4 :: Get eligible students (who has a chance of job)
-		offeredStudents = companies.stream()
-							.flatMap(c->c.getAgent().getOffers().stream())
-							.map(o->o.getStudent())
-							.collect(Collectors.toSet());
+		
 	}
 	
 	/**
@@ -72,6 +68,11 @@ public class Processor {
 	public static boolean process(){
 		
 		int noOfHolds = 0;
+		// Step 4 :: Get eligible students (who has a chance of job)
+		offeredStudents = companies.stream()
+							.flatMap(c->c.getAgent().getOffers().stream())
+							.map(o->o.getStudent())
+							.collect(Collectors.toSet());
 		
 		for(Student aStud : offeredStudents){
 			List<Company> prefComp = null;
@@ -114,6 +115,8 @@ public class Processor {
 				}
 				
 				JobOffer matchedOffer = comp.getAgent().getOfferOf(aStud);
+				if(matchedOffer==null)
+					continue;
 				OfferStatus status = matchedOffer.getCurrentStatus();
 				
 				if(!aStud.isPlaced() && status.equals(OfferStatus.ACTUAL_OFFER)){

@@ -107,8 +107,8 @@ public class Main extends Application {
 		System.out.println("Called DB Page");
         UIDBLoginCredential defaultDB = new UIDBLoginCredential();
         defaultDB.setIp("10.99.0.26");
-        defaultDB.setDbname("placement");
-        defaultDB.setUsername("placement");
+        defaultDB.setDbname("placements");
+        defaultDB.setUsername("jobuser");
 
         try {
 			if(!refresh)

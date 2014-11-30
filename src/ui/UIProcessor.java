@@ -50,9 +50,12 @@ public class UIProcessor {
 		Main.gotoAfterDB(uiCompList, false);
 	}
 
-	public static void processAddOffer(UICompanyBean comp, UIStudentBean selectedItem, OfferStatus offerstatus, int offerrank) {
+	public static void processAddOffer(UICompanyBean comp, String rollno, OfferStatus offerstatus, int offerrank) {
 		Company company = comp.getCompany();
-		Student student = GlobalContext.getLocalStore().searchStudent(selectedItem.getStudent().getRollno());
+		Student student = GlobalContext.getLocalStore().searchStudent(rollno);
+		if(student==null)
+			return;
+		System.out.println("Adding job to "+student +" in "+company);
 		ActionProcessor.processAddOffer(company,student,offerstatus,offerrank);
 		Main.showOfferPage(comp, true);
 	}

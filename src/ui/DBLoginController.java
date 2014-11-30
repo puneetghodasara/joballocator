@@ -119,9 +119,9 @@ public class DBLoginController extends AnchorPane implements Initializable {
 	public void setDefaultBean(UIDBLoginCredential defaultDB) {
 		this.defaultDB = defaultDB;
 		errorMsg.setText("");
-        ip.setPromptText(defaultDB.getIp());
-        dbname.setPromptText(defaultDB.getDbname());
-        username.setPromptText(defaultDB.getUsername());
+        ip.setText(defaultDB.getIp());
+        dbname.setText(defaultDB.getDbname());
+        username.setText(defaultDB.getUsername());
 
 	}
 

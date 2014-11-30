@@ -56,8 +56,8 @@ public class JobOfferController extends AnchorPane implements Initializable {
 	@FXML Label compname; 
 	@FXML Label jafno;
 	
-	@FXML ComboBox<UIStudentBean> actTextBox;
-	@FXML ComboBox<UIStudentBean> wlTextBox;
+	@FXML ComboBox<String> actTextBox;
+	@FXML ComboBox<String> wlTextBox;
 	
 	@FXML Button actAdd;
 	@FXML Button wlAdd;
@@ -89,9 +89,10 @@ public class JobOfferController extends AnchorPane implements Initializable {
     	// Event listeners
     	actAdd.setOnAction(e->{
     		if(actTextBox.getSelectionModel().getSelectedIndex()!=-1){
-    			UIStudentBean selectedItem = actTextBox.getSelectionModel().getSelectedItem();
-	    		if(selectedItem!=null){
-	    			UIProcessor.processAddOffer(company,selectedItem,OfferStatus.ACTUAL_OFFER,actOffers.size()+1);
+    			String selectedItem = actTextBox.getSelectionModel().getSelectedItem();
+    			String rollno = selectedItem.split(":")[0];
+	    		if(selectedItem!=null && rollno!=null){
+	    			UIProcessor.processAddOffer(company,rollno,OfferStatus.ACTUAL_OFFER,actOffers.size()+1);
 	    		}	
 			}
     		actTextBox.getSelectionModel().clearSelection();
@@ -99,9 +100,10 @@ public class JobOfferController extends AnchorPane implements Initializable {
     	});
     	wlAdd.setOnAction(e->{
     		if(wlTextBox.getSelectionModel().getSelectedIndex()!=-1){
-    			UIStudentBean selectedItem = wlTextBox.getSelectionModel().getSelectedItem();
-	    		if(selectedItem!=null){
-	    			UIProcessor.processAddOffer(company,selectedItem,OfferStatus.WAITLIST_OFFER,wlOffers.size()+1);
+    			String selectedItem = wlTextBox.getSelectionModel().getSelectedItem();
+    			String rollno = selectedItem.split(":")[0];
+	    		if(selectedItem!=null && rollno!=null){
+	    			UIProcessor.processAddOffer(company,rollno,OfferStatus.WAITLIST_OFFER,wlOffers.size()+1);
 	    		}	
 			}
     		wlTextBox.getSelectionModel().clearSelection();
@@ -114,16 +116,16 @@ public class JobOfferController extends AnchorPane implements Initializable {
     	
     	actTextBox.setItems(allNames);
     	actTextBox.setEditable(true);
-    	actTextBox.getEditor().setOnKeyTyped(e->{
-    		actTextBox.getSelectionModel().clearSelection();
-    		// TODO It is clearing on focus as well
-    		// Make sure it doesn't
-    	});
+//    	actTextBox.getEditor().setOnKeyTyped(e->{
+//    		actTextBox.getSelectionModel().clearSelection();
+//    		// TODO It is clearing on focus as well
+//    		// Make sure it doesn't
+//    	});
     	
     	actTextBox.getEditor().textProperty().addListener((items, oldVal, newVal)->{
 
 			if(actTextBox.getSelectionModel().getSelectedIndex()!=-1){
-				UIStudentBean selectedItem = actTextBox.getSelectionModel().getSelectedItem();
+				String selectedItem = actTextBox.getSelectionModel().getSelectedItem();
 	    		if(newVal!=null && selectedItem!=null &&
 	    				newVal.equals(selectedItem.toString())){
 	    			return;
@@ -141,16 +143,16 @@ public class JobOfferController extends AnchorPane implements Initializable {
 
     	wlTextBox.setItems(allNames);
     	wlTextBox.setEditable(true);
-    	wlTextBox.getEditor().setOnKeyTyped(e->{
-    		wlTextBox.getSelectionModel().clearSelection();
-    		// TODO It is clearing on focus as well
-    		// Make sure it doesn't
-    	});
+//    	wlTextBox.getEditor().setOnKeyTyped(e->{
+//    		wlTextBox.getSelectionModel().clearSelection();
+//    		// TODO It is clearing on focus as well
+//    		// Make sure it doesn't
+//    	});
     	
     	wlTextBox.getEditor().textProperty().addListener((items, oldVal, newVal)->{
 
 			if(wlTextBox.getSelectionModel().getSelectedIndex()!=-1){
-				UIStudentBean selectedItem = wlTextBox.getSelectionModel().getSelectedItem();
+				String selectedItem = wlTextBox.getSelectionModel().getSelectedItem();
 	    		if(newVal!=null && selectedItem!=null &&
 	    				newVal.equals(selectedItem.toString())){
 	    			return;
@@ -169,12 +171,13 @@ public class JobOfferController extends AnchorPane implements Initializable {
     	
     }
     
-    ObservableList<UIStudentBean> allNames = FXCollections.observableArrayList();
-    private Collection<UIStudentBean> filterStudent(String userText){
+    ObservableList<String> allNames = FXCollections.observableArrayList();
+    private Collection<String> filterStudent(String userText){
     	ArrayList<Student> students = GlobalContext.getLocalStore().getStudents();
 		ArrayList<UIStudentBean> uiStudentList = BeanConverter.convertStudentList(students);
     	return uiStudentList.stream()
     			.filter(s->(s.getStudent().getName().contains(userText) || s.getStudent().getRollno().contains(userText)))
+    			.map(uisb->uisb.toString())
     			.collect(Collectors.toList());
     }
     
