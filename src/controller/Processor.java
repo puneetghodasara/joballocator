@@ -31,17 +31,20 @@ public class Processor {
 		// Step 1 :: Get all companies of a day
 		companies = GlobalContext.getDataFetcher().fetchCompanies(GlobalContext.BATCH, GlobalContext.DAY, GlobalContext.SLOT);
 		GlobalContext.getLocalStore().loadCompanies(companies);
+		System.out.println("Data Fetch : Companies :"+companies.size());
 		
 		// Step 2 :: Get all students
 		ArrayList<Student> students = GlobalContext.getDataFetcher().fetchStudents(GlobalContext.BATCH, GlobalContext.DAY, GlobalContext.SLOT);
 		GlobalContext.getLocalStore().loadStudents(students);
+		System.out.println("Data Fetch : Students :"+students.size());
 		
 		// Step 3 :: Get all preferences
 		ArrayList<Preference> prefs = GlobalContext.getDataFetcher().fetchPreferences(GlobalContext.BATCH, GlobalContext.DAY, GlobalContext.SLOT);
 		GlobalContext.getLocalStore().fillPreferences(prefs);
+		System.out.println("Data Fetch : Prefs :"+prefs.size());
 				
-		ActionProcessor.processAddOffer(companies.get(0), students.get(0), OfferStatus.ACTUAL_OFFER, 0);
-		ActionProcessor.processAddOffer(companies.get(0), students.get(1), OfferStatus.ACTUAL_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(0), students.get(0), OfferStatus.ACTUAL_OFFER, 0);
+//		ActionProcessor.processAddOffer(companies.get(0), students.get(1), OfferStatus.ACTUAL_OFFER, 0);
 //		ActionProcessor.processAddOffer(companies.get(0), students.get(2), OfferStatus.WAITLIST_OFFER, 0);
 //		ActionProcessor.processAddOffer(companies.get(1), students.get(2), OfferStatus.ACTUAL_OFFER, 0);
 //		ActionProcessor.processAddOffer(companies.get(1), students.get(3), OfferStatus.ACTUAL_OFFER, 0);

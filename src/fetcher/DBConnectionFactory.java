@@ -24,11 +24,13 @@ public class DBConnectionFactory {
 					GlobalContext.DB_USER_NAME,GlobalContext.DB_PASSWORD);
 		} catch (SQLException e) {
 			System.out.println("SQL Exception : Can not make connection.");
+			e.printStackTrace();
 			return null;
 		}catch(Exception e){
 			System.out.println("Exception : Can not make connection.");
 			return null;
 		}
+		System.out.println("SQLConnection Made.");
 		return conn;
 	}
 }

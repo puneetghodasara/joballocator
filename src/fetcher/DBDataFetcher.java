@@ -22,7 +22,7 @@ public class DBDataFetcher implements DataFetcher{
 
 	private static final String COMP_QRY = "select *"
 			+ " from "+GlobalContext.COMPANY_SLOTTING_TABLE
-			+ " where "+GlobalContext.BATCH_COLUMN+"=? and "+GlobalContext.DAY_COLUMN+"=? and "+GlobalContext.SLOT_COLUMN+"? ";
+			+ " where "+GlobalContext.BATCH_COLUMN+"=? and "+GlobalContext.DAY_COLUMN+"=? and "+GlobalContext.SLOT_COLUMN+"=? ";
 	
 	@Override
 	public ArrayList<Company> fetchCompanies(String batch, int day, int slot) {
@@ -34,9 +34,10 @@ public class DBDataFetcher implements DataFetcher{
 			return companyList;
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(COMP_QRY)){
-			pstmt.setString(0, batch);
-			pstmt.setInt(1, day);
-			pstmt.setInt(2, slot);
+			pstmt.setString(1, batch);
+			pstmt.setInt(2, day);
+			pstmt.setInt(3, slot);
+			System.out.println("Comp Q : "+pstmt);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -49,14 +50,16 @@ public class DBDataFetcher implements DataFetcher{
 			rs.close();
 		} catch (SQLException e) {
 			System.out.println("SQL Exception : Getting Companies Query.");
+			e.printStackTrace();
 		}
 		return companyList;
 
 	}
 	
-	private static final String STUD_QRY = "select distinct *"
+	private static final String STUD_QRY = "select distinct "+GlobalContext.STUDENTID_COLUMN
 			+ " from "+GlobalContext.STUDENT_TABLE
-			+ " where "+GlobalContext.BATCH_COLUMN+"=? and "+GlobalContext.DAY_COLUMN+"=? and "+GlobalContext.SLOT_COLUMN+"? ";
+			+ " where "+GlobalContext.BATCH_COLUMN+"=? ";
+//			+ "and "+GlobalContext.DAY_COLUMN+"=? and "+GlobalContext.SLOT_COLUMN+"=? ";
 	
 
 	@Override
@@ -68,9 +71,9 @@ public class DBDataFetcher implements DataFetcher{
 			return studentList;
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(STUD_QRY)){
-			pstmt.setString(0, batch);
-			pstmt.setInt(1, day);
-			pstmt.setInt(2, slot);
+			pstmt.setString(1, batch);
+//			pstmt.setInt(2, day);
+//			pstmt.setInt(3, slot);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -79,7 +82,7 @@ public class DBDataFetcher implements DataFetcher{
 			}
 			rs.close();
 		} catch (SQLException e) {
-			System.out.println("SQL Exception : Getting Preferences Query.");
+			System.out.println("SQL Exception : Getting student Query.");
 		}
 		return studentList;
 	}
@@ -87,7 +90,7 @@ public class DBDataFetcher implements DataFetcher{
 	
 	private static final String PREF_QRY = "select *"
 			+ " from "+GlobalContext.STUDENT_PREF_TABLE
-			+ " where "+GlobalContext.BATCH_COLUMN+"=? and "+GlobalContext.DAY_COLUMN+"=? and "+GlobalContext.SLOT_COLUMN+"? "
+			+ " where "+GlobalContext.BATCH_COLUMN+"=? and "+GlobalContext.DAY_COLUMN+"=? and "+GlobalContext.SLOT_COLUMN+"=? "
 			+ " order by "+GlobalContext.STUDENTID_COLUMN+","+GlobalContext.PREF_RANK_COLUMN;
 	
 	
@@ -100,9 +103,9 @@ public class DBDataFetcher implements DataFetcher{
 			return prefList;
 		
 		try (PreparedStatement pstmt = conn.prepareStatement(PREF_QRY)){
-			pstmt.setString(0, batch);
-			pstmt.setInt(1, day);
-			pstmt.setInt(2, slot);
+			pstmt.setString(1, batch);
+			pstmt.setInt(2, day);
+			pstmt.setInt(3, slot);
 			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -121,6 +124,7 @@ public class DBDataFetcher implements DataFetcher{
 			rs.close();
 		} catch (SQLException e) {
 			System.out.println("SQL Exception : Getting Preferences Query.");
+			e.printStackTrace();
 		}
 		return prefList;
 	}

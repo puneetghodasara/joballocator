@@ -22,7 +22,7 @@ public class DBCredential {
 	public DBCredential(UIDBLoginCredential uidbLoginBean) {
 		super();
 		ip = uidbLoginBean.getIp();
-		hostname = (uidbLoginBean.getHostname());
+		hostname = (uidbLoginBean.getIp());
 		dbname = (uidbLoginBean.getDbname());
 		username = (uidbLoginBean.getUsername());
 		password = (uidbLoginBean.getPassword());
