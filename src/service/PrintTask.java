@@ -34,7 +34,12 @@ public class PrintTask extends Task<Void>{
 		msg+="<td>Status</td>";
 		msg+="</tr>";
 		
-    	 (new UIRepStudentJob()).getItems().stream().forEach(us->{
+    	 (new UIRepStudentJob()).getItems()
+    	 		.stream()
+    	 		.sorted((o1,o2)->{
+    	 			return o1.compnameProperty().get().compareTo(o2.compnameProperty().get());
+    	 		})
+    	 		.forEach(us->{
     		msg+="<tr>";
     		msg+="<td>"+us.compnameProperty().get()+"</td>";
     		msg+="<td>"+us.jafnoProperty().get()+"</td>";
