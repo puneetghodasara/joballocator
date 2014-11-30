@@ -95,6 +95,14 @@ public class NewInfoController extends AnchorPane implements Initializable {
     		if(selComp.getCompany().getAgent().isLetterSent())
     			DialogUtil.showInformation("Success", "Company Offer Letter is locked successfully.");
     	});
+//    	lockButton.setOnAction(e->{
+//    		companies.stream().forEach(comp->comp.getCompany().getAgent().sendLetter());
+//    		UICompanyBean selComp = compList.getSelectionModel().getSelectedItem();
+//    		if(selComp!=null)
+//    			selComp.getCompany().getAgent().sendLetter();
+//    		if(selComp.getCompany().getAgent().isLetterSent())
+//    			DialogUtil.showInformation("Success", "Company Offer Letter is locked successfully.");
+//    	});
     	processJobButton.setOnAction(e->{
     		System.out.println("Process Job called.");
     		long lockedComp = companies.stream().filter(uc->uc.getCompany()
@@ -104,6 +112,8 @@ public class NewInfoController extends AnchorPane implements Initializable {
 				boolean showError = DialogUtil.showConfirm("Warning", "Only "+lockedComp+" has been locked. Do you want to proceed?");
 				if(showError)
 					UIProcessor.processAllData();
+			}else{
+				UIProcessor.processAllData();
 			}
     	});
     }
