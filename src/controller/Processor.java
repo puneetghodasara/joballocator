@@ -27,11 +27,6 @@ public class Processor {
 	 * Initializing local store.
 	 */
 	public static void init(){
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		
 		// Step 1 :: Get all companies of a day
 		companies = GlobalContext.getDataFetcher().fetchCompanies(GlobalContext.BATCH, GlobalContext.DAY, GlobalContext.SLOT);
@@ -48,17 +43,9 @@ public class Processor {
 		GlobalContext.getLocalStore().fillPreferences(prefs);
 		System.out.println("Data Fetch : Prefs :"+prefs.size());
 				
-//		ActionProcessor.processAddOffer(companies.get(0), students.get(0), OfferStatus.ACTUAL_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(0), students.get(1), OfferStatus.ACTUAL_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(0), students.get(2), OfferStatus.WAITLIST_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(1), students.get(2), OfferStatus.ACTUAL_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(1), students.get(3), OfferStatus.ACTUAL_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(1), students.get(4), OfferStatus.ACTUAL_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(1), students.get(5), OfferStatus.WAITLIST_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(2), students.get(3), OfferStatus.ACTUAL_OFFER, 0);
-//		ActionProcessor.processAddOffer(companies.get(2), students.get(0), OfferStatus.WAITLIST_OFFER, 0);
 		
-		
+		// Step 3 :: Get all preferences
+		GlobalContext.getDataFetcher().fetchOffers();
 		
 	}
 	

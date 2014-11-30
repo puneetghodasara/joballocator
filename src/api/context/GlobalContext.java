@@ -32,6 +32,7 @@ public class GlobalContext {
 	public static final String COMPANY_SLOTTING_TABLE = "scheduling_company_info";
 	public static final String STUDENT_PREF_TABLE = "scheduling_student_preferences_daywise";
 	public static final String STUDENT_TABLE = "student";
+	public static final String OFFER_TABLE  = "job_offer_cache";
 
 	public static final String COMPID_COLUMN = "complogin";
 	public static final String PROFILEID_COLUMN = "jafsrno";
@@ -41,6 +42,10 @@ public class GlobalContext {
 	public static final String BATCH_COLUMN = "batch";
 	public static final String DAY_COLUMN = "day";
 	public static final String SLOT_COLUMN = "slot";
+	
+	public static final String TYPE_COLUMN = "type";
+	public static final String RANK_COLUMN = "rank";
+	
 	
 	public static final String LOGIN_ATTEMPT_FAILURE = "Username / Password are invalid. Try again.";
 	public static final String DATA_ATTEMPT_FAILURE = "Credential for data conneciton is invalid.";

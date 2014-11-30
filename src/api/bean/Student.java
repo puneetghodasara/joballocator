@@ -2,6 +2,7 @@ package api.bean;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ import api.exception.IllegalPreferenceException;
  * @author Punit_Ghodasara
  *
  */
-public class Student implements OfferTaker {
+public class Student implements OfferTaker, Comparable<Student> {
 
 	private String rollno;
 	private String name;
@@ -76,5 +77,10 @@ public class Student implements OfferTaker {
 	@Override
 	public String toString() {
 		return getRollno()+":"+getName();
+	}
+
+	@Override
+	public int compareTo(Student o) {
+		return o.rollno.compareTo(this.rollno);
 	}
 }

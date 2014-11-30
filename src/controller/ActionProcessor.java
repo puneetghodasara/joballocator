@@ -63,10 +63,13 @@ public class ActionProcessor {
 	 * @param student of type
 	 * @param offerstatus with
 	 * @param offerrank if WL
+	 * @return 
 	 */
 	public static void processAddOffer(Company company, Student student,
-			OfferStatus offerstatus, int offerrank) {
-		company.getAgent().presentOffer(student, offerstatus, offerrank);
+			OfferStatus offerstatus, int offerrank, boolean isFetching) {
+		JobOffer presentOffer = company.getAgent().presentOffer(student, offerstatus, offerrank);
+		if(!isFetching)
+			GlobalContext.getDataFetcher().pushOffer(presentOffer);
 	}
 
 	/**
@@ -76,6 +79,7 @@ public class ActionProcessor {
 	 */
 	public static void processDelOffer(Company company, JobOffer offer) {
 		company.getAgent().revokeOffer(offer);
+		GlobalContext.getDataFetcher().delOffer(offer);
 	}
 
 	/**

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import api.bean.Company;
 import api.bean.Preference;
 import api.bean.Student;
+import api.bean.offer.JobOffer;
 import api.fetcher.DataFetcher;
 
 public class DummyDataFetcher implements DataFetcher {
@@ -71,6 +72,24 @@ public class DummyDataFetcher implements DataFetcher {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	@Override
+	public void pushOffer(JobOffer presentOffer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delOffer(JobOffer offer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<JobOffer> fetchOffers() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

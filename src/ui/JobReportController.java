@@ -159,6 +159,7 @@ public class JobReportController extends AnchorPane implements Initializable {
 		
 		allStudents = GlobalContext.getLocalStore().getStudents()
 				.stream()
+				.sorted()
 				.map(stud->new UIStudentBean(stud))
 				.collect(Collectors.toList());
 		

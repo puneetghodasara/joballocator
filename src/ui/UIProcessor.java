@@ -56,7 +56,7 @@ public class UIProcessor {
 		if(student==null)
 			return;
 		System.out.println("Adding job to "+student +" in "+company);
-		ActionProcessor.processAddOffer(company,student,offerstatus,offerrank);
+		ActionProcessor.processAddOffer(company,student,offerstatus,offerrank, false);
 		Main.showOfferPage(comp, true);
 	}
 

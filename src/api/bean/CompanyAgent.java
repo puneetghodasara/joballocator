@@ -42,9 +42,12 @@ public class CompanyAgent implements OfferSubscriber{
 	 * @param student
 	 * @param offerstatus
 	 * @param offerrank
+	 * @return 
 	 */
-	public void presentOffer(Student student, OfferStatus offerstatus,int offerrank) {
-		offers.add(new JobOffer(company, student, offerstatus, offerrank));
+	public JobOffer presentOffer(Student student, OfferStatus offerstatus,int offerrank) {
+		JobOffer jobOffer = new JobOffer(company, student, offerstatus, offerrank);
+		offers.add(jobOffer);
+		return jobOffer;
 	}
 
 	/**
